@@ -138,7 +138,7 @@ const bookAppointment = async (req, res) => {
         const docData = await doctorModel.findById(docId).select('-password')
 
         if (!docData.available) {
-            return res.json({ success: false, message: 'Bác sĩ hiện không khả dụng' })
+            return res.json({ success: false, message: 'Bác sĩ hiện không hoạt động' })
         }
 
         let slots_booked = docData.slots_booked
@@ -293,7 +293,7 @@ const updatePaymentStatus = async (req, res) => {
         if (!appointmentId) return res.status(400).json({ success: false, message: 'Thiếu appointmentId' });
 
         await appointmentModel.findByIdAndUpdate(appointmentId, { payment: true });
-        res.json({ success: true, message: 'Cập nhật trạng thái thanh toán thành công' });
+        res.json({ success: true, message: 'Thanh toán thành công' });
     } catch (error) {
         console.error('updatePaymentStatus error:', error);
         res.status(500).json({ success: false, message: error.message });
